@@ -51,7 +51,15 @@ var _ = Describe("Book Controller", func() {
 						Name:      resourceName,
 						Namespace: "default",
 					},
-					// TODO(user): Specify other spec details if needed.
+					Spec: catalogv1alpha1.BookSpec{
+						Title:         "Test Book",
+						ISBN:          "978-0-123-45678-9",
+						Author:        "Test Author",
+						Publisher:     "Test Publisher",
+						PublishedYear: 2024,
+						Genre:         "Fiction",
+						Pages:         200,
+					},
 				}
 				Expect(k8sClient.Create(ctx, resource)).To(Succeed())
 			}
@@ -77,8 +85,14 @@ var _ = Describe("Book Controller", func() {
 				NamespacedName: typeNamespacedName,
 			})
 			Expect(err).NotTo(HaveOccurred())
-			// TODO(user): Add more specific assertions depending on your controller's reconciliation logic.
-			// Example: If you expect a certain status condition after reconciliation, verify it here.
+
+			By("Checking if the Book status was updated")
+			err = k8sClient.Get(ctx, typeNamespacedName, book)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(book.Status.Conditions).NotTo(BeEmpty())
+			Expect(book.Status.Conditions[0].Type).To(Equal("Ready"))
+			Expect(book.Status.Conditions[0].Status).To(Equal(metav1.ConditionTrue))
+			Expect(book.Status.Conditions[0].Reason).To(Equal("BookRegistered"))
 		})
 	})
 })
