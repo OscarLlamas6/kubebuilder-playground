@@ -1,0 +1,116 @@
+version: '3'
+
+vars:
+  IMAGE_NAME: bookstore-controller
+  IMAGE_TAG: v1
+  CLUSTER_NAME: bookstore-dev
+
+tasks:
+  # === Code Generation ===
+  generate:
+    desc: "Generate CRDs and RBAC manifests"
+    cmds:
+      - make manifests
+
+  # === Local Development ===
+  install-crds:
+    desc: "Install CRDs in the cluster"
+    cmds:
+      - make install
+
+  run-local:
+    desc: "Run controller locally (development mode)"
+    cmds:
+      - make run
+
+  # === Cluster Deployment ===
+  build:
+    desc: "Build Docker image"
+    cmds:
+      - make docker-build IMG={{.IMAGE_NAME}}:{{.IMAGE_TAG}}
+
+  load-image:
+    desc: "Load Docker image into Kind cluster"
+    cmds:
+      - kind load docker-image {{.IMAGE_NAME}}:{{.IMAGE_TAG}} --name {{.CLUSTER_NAME}}
+
+  deploy:
+    desc: "Deploy controller to cluster"
+    cmds:
+      - make deploy IMG={{.IMAGE_NAME}}:{{.IMAGE_TAG}}
+
+  deploy-all:
+    desc: "Build, load and deploy controller to cluster"
+    cmds:
+      - task: build
+      - task: load-image
+      - task: deploy
+
+  # === Cluster Management ===
+  create-cluster:
+    desc: "Create Kind cluster with configuration"
+    cmds:
+      - kind create cluster --config kind/cluster-config.yaml
+
+  delete-cluster:
+    desc: "Delete Kind cluster"
+    cmds:
+      - kind delete cluster --name {{.CLUSTER_NAME}}
+
+  # === Testing ===
+  create-sample:
+    desc: "Create sample Book resource"
+    cmds:
+      - kubectl apply -f config/samples/catalog_v1alpha1_book.yaml
+
+  list-books:
+    desc: "List all Books"
+    cmds:
+      - kubectl get books
+
+  get-book:
+    desc: "Get Book details (usage: task get-book BOOK=book-name)"
+    cmds:
+      - kubectl get book {{.BOOK}} -o yaml
+
+  # === Logs and Debugging ===
+  logs:
+    desc: "View controller logs"
+    cmds:
+      - kubectl logs -n kubebuilder-playground-system deployment/kubebuilder-playground-controller-manager --tail=50 -f
+
+  pods:
+    desc: "List controller pods"
+    cmds:
+      - kubectl get pods -n kubebuilder-playground-system
+
+  # === Cleanup ===
+  undeploy:
+    desc: "Remove controller from cluster"
+    cmds:
+      - make undeploy
+
+  uninstall-crds:
+    desc: "Uninstall CRDs from cluster"
+    cmds:
+      - make uninstall
+
+  clean-all:
+    desc: "Undeploy controller and uninstall CRDs"
+    cmds:
+      - task: undeploy
+      - task: uninstall-crds
+
+  # === Quick Commands ===
+  dev:
+    desc: "Quick start for local development"
+    cmds:
+      - task: generate
+      - task: install-crds
+      - task: run-local
+
+  prod:
+    desc: "Quick deploy to cluster"
+    cmds:
+      - task: generate
+      - task: deploy-all

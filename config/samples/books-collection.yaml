@@ -1,0 +1,78 @@
+---
+apiVersion: catalog.bookstore.io/v1alpha1
+kind: Book
+metadata:
+  name: book-1984
+spec:
+  title: "1984"
+  isbn: "978-0-452-28423-4"
+  author: "George Orwell"
+  publisher: "Penguin Books"
+  publishedYear: 1949
+  genre: "Fiction"
+  pages: 328
+---
+apiVersion: catalog.bookstore.io/v1alpha1
+kind: Book
+metadata:
+  name: book-hobbit
+spec:
+  title: "The Hobbit"
+  isbn: "978-0-547-92822-7"
+  author: "J.R.R. Tolkien"
+  publisher: "Houghton Mifflin Harcourt"
+  publishedYear: 1937
+  genre: "Fantasy"
+  pages: 310
+---
+apiVersion: catalog.bookstore.io/v1alpha1
+kind: Book
+metadata:
+  name: book-sapiens
+spec:
+  title: "Sapiens: A Brief History of Humankind"
+  isbn: "978-0-062-31609-7"
+  author: "Yuval Noah Harari"
+  publisher: "Harper"
+  publishedYear: 2015
+  genre: "NonFiction"
+  pages: 443
+---
+apiVersion: catalog.bookstore.io/v1alpha1
+kind: Book
+metadata:
+  name: book-sherlock
+spec:
+  title: "The Adventures of Sherlock Holmes"
+  isbn: "978-1-503-21099-0"
+  author: "Arthur Conan Doyle"
+  publisher: "CreateSpace"
+  publishedYear: 1892
+  genre: "Mystery"
+  pages: 307
+---
+apiVersion: catalog.bookstore.io/v1alpha1
+kind: Book
+metadata:
+  name: book-dune
+spec:
+  title: "Dune"
+  isbn: "978-0-441-17271-9"
+  author: "Frank Herbert"
+  publisher: "Ace Books"
+  publishedYear: 1965
+  genre: "SciFi"
+  pages: 688
+---
+apiVersion: catalog.bookstore.io/v1alpha1
+kind: Book
+metadata:
+  name: book-atomic-habits
+spec:
+  title: "Atomic Habits"
+  isbn: "978-0-735-21129-2"
+  author: "James Clear"
+  publisher: "Avery"
+  publishedYear: 2018
+  genre: "SelfHelp"
+  pages: 320

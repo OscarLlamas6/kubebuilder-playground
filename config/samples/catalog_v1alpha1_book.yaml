@@ -1,0 +1,15 @@
+apiVersion: catalog.bookstore.io/v1alpha1
+kind: Book
+metadata:
+  labels:
+    app.kubernetes.io/name: kubebuilder-playground
+    app.kubernetes.io/managed-by: kustomize
+  name: book-1984
+spec:
+  title: "1984"
+  isbn: "978-0-452-28423-4"
+  author: "George Orwell"
+  publisher: "Penguin Books"
+  publishedYear: 1949
+  genre: "Fiction"
+  pages: 328

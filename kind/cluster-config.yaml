@@ -1,0 +1,102 @@
+# Kind Cluster Configuration for BookStore Platform
+# This file defines the cluster topology and features
+
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+
+# Cluster name - will create context "kind-bookstore-dev"
+name: bookstore-dev
+
+# Nodes configuration
+# You can have multiple control-plane nodes for HA and multiple workers
+nodes:
+  # Control plane node (master)
+  - role: control-plane
+    # Kubernetes version to use (optional, defaults to latest)
+    # image: kindest/node:v1.33.1
+    
+    # Extra port mappings - useful for exposing services
+    # Example: Access your app on localhost:8080
+    extraPortMappings:
+      - containerPort: 30080  # NodePort service port
+        hostPort: 8080        # Access on localhost:8080
+        protocol: TCP
+      - containerPort: 30443
+        hostPort: 8443
+        protocol: TCP
+    
+    # Mount local directories into the node
+    # Useful for sharing files or using local storage
+    extraMounts:
+      - hostPath: /tmp/kind-data
+        containerPath: /data
+        readOnly: false
+    
+    # Kubernetes configuration patches
+    kubeadmConfigPatches:
+      - |
+        kind: InitConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            node-labels: "ingress-ready=true"
+      - |
+        kind: ClusterConfiguration
+        apiServer:
+          extraArgs:
+            # Enable audit logging
+            audit-log-path: /var/log/kubernetes/audit.log
+            audit-log-maxage: "30"
+            audit-log-maxbackup: "10"
+            audit-log-maxsize: "100"
+
+  # Worker node 1
+  - role: worker
+    # You can specify different images per node
+    # image: kindest/node:v1.33.1
+    
+    # Labels for this specific node
+    kubeadmConfigPatches:
+      - |
+        kind: JoinConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            node-labels: "workload=compute,zone=us-east-1a"
+
+  # Worker node 2 (optional - uncomment for multi-worker setup)
+  # - role: worker
+  #   kubeadmConfigPatches:
+  #     - |
+  #       kind: JoinConfiguration
+  #       nodeRegistration:
+  #         kubeletExtraArgs:
+  #           node-labels: "workload=storage,zone=us-east-1b"
+
+# Networking configuration
+networking:
+  # Pod subnet (default: 10.244.0.0/16)
+  podSubnet: "10.244.0.0/16"
+  
+  # Service subnet (default: 10.96.0.0/12)
+  serviceSubnet: "10.96.0.0/12"
+  
+  # Disable default CNI - useful if you want to install your own
+  # disableDefaultCNI: false
+  
+  # API server address (optional)
+  # apiServerAddress: "127.0.0.1"
+  
+  # API server port (optional, default: random)
+  # apiServerPort: 6443
+
+# Feature gates to enable
+# Useful for testing alpha/beta Kubernetes features
+featureGates:
+  # Example: Enable some feature gates
+  # "EphemeralContainers": true
+  # "PodSecurity": true
+
+# Runtime configuration
+# containerdConfigPatches:
+#   - |-
+#     [plugins."io.containerd.grpc.v1.cri".registry.mirrors."localhost:5000"]
+#       endpoint = ["http://kind-registry:5000"]

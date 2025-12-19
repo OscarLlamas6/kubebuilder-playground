@@ -1,0 +1,32 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: manager-role
+rules:
+- apiGroups:
+  - catalog.bookstore.io
+  resources:
+  - books
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - catalog.bookstore.io
+  resources:
+  - books/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - catalog.bookstore.io
+  resources:
+  - books/status
+  verbs:
+  - get
+  - patch
+  - update
