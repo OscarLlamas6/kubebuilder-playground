@@ -1,121 +1,79 @@
-# kubebuilder-playground
-// TODO(user): Add simple overview of use/purpose
+# 📚 BookStore Platform - Kubebuilder Learning Project
 
-## Description
-// TODO(user): An in-depth paragraph about your project and overview of use
+A hands-on Kubebuilder project for learning how to build Kubernetes Custom Resource Definitions (CRDs) and controllers from scratch. This project implements a bookstore management platform to understand the architecture and patterns used in production-grade Kubernetes operators.
 
-## Getting Started
+## 🎯 Overview
 
-### Prerequisites
-- go version v1.23.0+
-- docker version 17.03+.
-- kubectl version v1.11.3+.
-- Access to a Kubernetes v1.11.3+ cluster.
+This project demonstrates:
+- Building CRDs and controllers with Kubebuilder
+- Kubernetes reconciliation loops and status conditions
+- Local development with Kind clusters
+- Production deployment patterns
+- Comparison with real-world projects like [Milo](https://github.com/datum-cloud/milo)
 
-### To Deploy on the cluster
-**Build and push your image to the location specified by `IMG`:**
+**Current Status:** Phase 1 Complete ✅
+- Book CRD with validations
+- Basic controller with reconciliation logic
+- Kind cluster configuration
+- Sample resources and documentation
 
-```sh
-make docker-build docker-push IMG=<some-registry>/kubebuilder-playground:tag
+## 📖 Documentation
+
+Comprehensive guides available in multiple languages:
+
+- **[📘 English Documentation](docs/README-en.md)** - Complete guide with architecture, deployment, and examples
+- **[📗 Documentación en Español](docs/README-es.md)** - Guía completa con arquitectura, deployment y ejemplos
+
+Both include:
+- Kind cluster configuration
+- Project architecture
+- CRD and controller anatomy
+- Local vs production deployment
+- Taskfile command reference
+- Key Kubernetes concepts
+
+## 🚀 Quick Start
+
+```bash
+# Create Kind cluster
+task create-cluster
+
+# Deploy controller to cluster
+task prod
+
+# Create sample books
+kubectl apply -f config/samples/books-collection.yaml
+
+# View books
+task list-books
 ```
 
-**NOTE:** This image ought to be published in the personal registry you specified.
-And it is required to have access to pull the image from the working environment.
-Make sure you have the proper permission to the registry if the above commands don’t work.
+**See full documentation for detailed setup and explanations.**
 
-**Install the CRDs into the cluster:**
+## 🛠️ Common Commands
 
-```sh
-make install
+```bash
+task --list              # View all available commands
+task dev                 # Quick local development setup
+task logs                # View controller logs
+task get-book BOOK=name  # Get book details
+task clean-all           # Remove everything
 ```
 
-**Deploy the Manager to the cluster with the image specified by `IMG`:**
+## 📦 What's Included
 
-```sh
-make deploy IMG=<some-registry>/kubebuilder-playground:tag
-```
+- **Book CRD** - Custom resource with validations
+- **Controller** - Reconciliation logic with status updates
+- **Kind Config** - 2-node cluster setup
+- **Taskfile** - Simplified command interface
+- **Samples** - 6 example books across different genres
+- **Docs** - Complete guides in English and Spanish
 
-> **NOTE**: If you encounter RBAC errors, you may need to grant yourself cluster-admin
-privileges or be logged in as admin.
+## 🔗 Resources
 
-**Create instances of your solution**
-You can apply the samples (examples) from the config/sample:
-
-```sh
-kubectl apply -k config/samples/
-```
-
->**NOTE**: Ensure that the samples has default values to test it out.
-
-### To Uninstall
-**Delete the instances (CRs) from the cluster:**
-
-```sh
-kubectl delete -k config/samples/
-```
-
-**Delete the APIs(CRDs) from the cluster:**
-
-```sh
-make uninstall
-```
-
-**UnDeploy the controller from the cluster:**
-
-```sh
-make undeploy
-```
-
-## Project Distribution
-
-Following the options to release and provide this solution to the users.
-
-### By providing a bundle with all YAML files
-
-1. Build the installer for the image built and published in the registry:
-
-```sh
-make build-installer IMG=<some-registry>/kubebuilder-playground:tag
-```
-
-**NOTE:** The makefile target mentioned above generates an 'install.yaml'
-file in the dist directory. This file contains all the resources built
-with Kustomize, which are necessary to install this project without its
-dependencies.
-
-2. Using the installer
-
-Users can just run 'kubectl apply -f <URL for YAML BUNDLE>' to install
-the project, i.e.:
-
-```sh
-kubectl apply -f https://raw.githubusercontent.com/<org>/kubebuilder-playground/<tag or branch>/dist/install.yaml
-```
-
-### By providing a Helm Chart
-
-1. Build the chart using the optional helm plugin
-
-```sh
-kubebuilder edit --plugins=helm/v1-alpha
-```
-
-2. See that a chart was generated under 'dist/chart', and users
-can obtain this solution from there.
-
-**NOTE:** If you change the project, you need to update the Helm Chart
-using the same command above to sync the latest changes. Furthermore,
-if you create webhooks, you need to use the above command with
-the '--force' flag and manually ensure that any custom configuration
-previously added to 'dist/chart/values.yaml' or 'dist/chart/manager/manager.yaml'
-is manually re-applied afterwards.
-
-## Contributing
-// TODO(user): Add detailed information on how you would like others to contribute to this project
-
-**NOTE:** Run `make help` for more information on all potential `make` targets
-
-More information can be found via the [Kubebuilder Documentation](https://book.kubebuilder.io/introduction.html)
+- [Kubebuilder Documentation](https://book.kubebuilder.io/)
+- [Milo Project](https://github.com/datum-cloud/milo) - Production reference
+- [Kind Documentation](https://kind.sigs.k8s.io/)
 
 ## License
 
