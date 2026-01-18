@@ -26,7 +26,7 @@
 
 This project is a bookstore management platform built with **Kubebuilder** to learn how to create Custom Resource Definitions (CRDs) and Kubernetes controllers from scratch.
 
-**Goal:** Understand how the Milo project is built by creating a similar medium-complexity project.
+**Goal:** Learn Kubebuilder by building a medium-complexity project that demonstrates real-world patterns and best practices for Kubernetes operators.
 
 **Resources we'll build:**
 - ✅ **Book** - Basic book resource (Phase 1 - Completed)
@@ -560,7 +560,7 @@ When there are multiple controller replicas, only one actively reconciles (the "
 - [Kubebuilder Book](https://book.kubebuilder.io/)
 - [Kubernetes API Conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md)
 - [Controller Runtime](https://pkg.go.dev/sigs.k8s.io/controller-runtime)
-- [Milo Project](https://github.com/datum-cloud/milo) - Architecture reference
+- [Kind Documentation](https://kind.sigs.k8s.io/)
 
 ---
 
