@@ -4,31 +4,28 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.17.2
-  name: books.catalog.bookstore.io
+  name: authors.catalog.bookstore.io
 spec:
   group: catalog.bookstore.io
   names:
-    kind: Book
-    listKind: BookList
-    plural: books
-    singular: book
+    kind: Author
+    listKind: AuthorList
+    plural: authors
+    singular: author
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .spec.title
-      name: Title
+    - jsonPath: .spec.name
+      name: Name
       type: string
-    - jsonPath: .spec.author
-      name: Author
+    - jsonPath: .spec.nationality
+      name: Nationality
       type: string
-    - jsonPath: .spec.isbn
-      name: ISBN
-      type: string
-    - jsonPath: .spec.genre
-      name: Genre
-      type: string
-    - jsonPath: .status.availableCopies
-      name: Available
+    - jsonPath: .spec.birthYear
+      name: Birth Year
+      type: integer
+    - jsonPath: .status.bookCount
+      name: Books
       type: integer
     - jsonPath: .metadata.creationTimestamp
       name: Age
@@ -36,7 +33,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Book is the Schema for the books API.
+        description: Author is the Schema for the authors API.
         properties:
           apiVersion:
             description: |-
@@ -56,84 +53,48 @@ spec:
           metadata:
             type: object
           spec:
-            description: BookSpec defines the desired state of Book.
+            description: AuthorSpec defines the desired state of Author.
             properties:
-              author:
-                description: Author is the name of the book's author (deprecated,
-                  use AuthorRef instead).
+              biography:
+                description: Biography is a brief description of the author
+                maxLength: 1000
                 type: string
-              authorRef:
-                description: AuthorRef is a reference to the Author resource.
-                properties:
-                  name:
-                    description: Name is the name of the Author resource.
-                    type: string
-                required:
-                - name
-                type: object
-              genre:
-                description: Genre is the literary genre of the book.
-                enum:
-                - Fiction
-                - NonFiction
-                - Mystery
-                - SciFi
-                - Fantasy
-                - Romance
-                - Thriller
-                - Biography
-                - History
-                - SelfHelp
-                - Other
-                type: string
-              isbn:
-                description: ISBN is the International Standard Book Number.
-                pattern: ^[0-9]{3}-[0-9]{1,5}-[0-9]{1,7}-[0-9]{1,7}-[0-9X]$|^[0-9]{9}[0-9X]$
-                type: string
-              pages:
-                description: Pages is the number of pages in the book.
-                minimum: 1
-                type: integer
-              publishedYear:
-                description: PublishedYear is the year the book was published.
+              birthYear:
+                description: BirthYear is the year the author was born
                 maximum: 2100
                 minimum: 1000
                 type: integer
-              publisher:
-                description: Publisher is the name of the publishing company.
-                type: string
-              title:
-                description: Title is the title of the book.
+              deathYear:
+                description: DeathYear is the year the author died (if applicable)
+                maximum: 2100
+                minimum: 1000
+                type: integer
+              name:
+                description: Name is the full name of the author
+                maxLength: 100
                 minLength: 1
                 type: string
+              nationality:
+                description: Nationality is the author's nationality
+                maxLength: 50
+                type: string
+              website:
+                description: Website is the author's official website
+                pattern: ^https?://.*
+                type: string
             required:
-            - isbn
-            - title
+            - name
             type: object
           status:
-            description: BookStatus defines the observed state of Book.
+            description: AuthorStatus defines the observed state of Author.
             properties:
-              authorInfo:
-                description: AuthorInfo contains cached information from the referenced
-                  Author.
-                properties:
-                  birthYear:
-                    description: BirthYear is the year the author was born.
-                    type: integer
-                  name:
-                    description: Name is the full name of the author.
-                    type: string
-                  nationality:
-                    description: Nationality is the author's nationality.
-                    type: string
-                type: object
-              availableCopies:
-                description: |-
-                  AvailableCopies represents the number of available copies across all bookstores.
-                  This will be calculated by the controller based on Inventory resources.
+              bookCount:
+                description: BookCount is the number of books by this author in the
+                  catalog
                 type: integer
               conditions:
-                description: Conditions represent the current status of the book.
+                description: Conditions represent the latest available observations
+                  of the Author's state
                 items:
                   description: Condition contains details for one aspect of the current
                     state of this API Resource.

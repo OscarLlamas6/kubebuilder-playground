@@ -7,6 +7,7 @@ rules:
 - apiGroups:
   - catalog.bookstore.io
   resources:
+  - authors
   - books
   verbs:
   - create
@@ -19,12 +20,14 @@ rules:
 - apiGroups:
   - catalog.bookstore.io
   resources:
+  - authors/finalizers
   - books/finalizers
   verbs:
   - update
 - apiGroups:
   - catalog.bookstore.io
   resources:
+  - authors/status
   - books/status
   verbs:
   - get

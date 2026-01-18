@@ -17,4 +17,13 @@ resources:
   kind: Book
   path: github.com/OscarLlamas6/kubebuilder-playground/api/v1alpha1
   version: v1alpha1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: bookstore.io
+  group: catalog
+  kind: Author
+  path: github.com/OscarLlamas6/kubebuilder-playground/api/v1alpha1
+  version: v1alpha1
 version: "3"

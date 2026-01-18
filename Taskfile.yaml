@@ -114,3 +114,4 @@ tasks:
     cmds:
       - task: generate
       - task: deploy-all
+    # Note: make deploy installs CRDs automatically

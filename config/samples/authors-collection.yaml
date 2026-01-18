@@ -1,0 +1,66 @@
+---
+apiVersion: catalog.bookstore.io/v1alpha1
+kind: Author
+metadata:
+  name: george-orwell
+spec:
+  name: "George Orwell"
+  biography: "English novelist, essayist, journalist, and critic. Best known for his dystopian novel 1984 and allegorical novella Animal Farm."
+  birthYear: 1903
+  deathYear: 1950
+  nationality: "British"
+---
+apiVersion: catalog.bookstore.io/v1alpha1
+kind: Author
+metadata:
+  name: jrr-tolkien
+spec:
+  name: "J.R.R. Tolkien"
+  biography: "English writer, poet, philologist, and academic. Author of The Hobbit and The Lord of the Rings trilogy."
+  birthYear: 1892
+  deathYear: 1973
+  nationality: "British"
+---
+apiVersion: catalog.bookstore.io/v1alpha1
+kind: Author
+metadata:
+  name: yuval-harari
+spec:
+  name: "Yuval Noah Harari"
+  biography: "Israeli historian and professor. Author of the popular science bestsellers Sapiens, Homo Deus, and 21 Lessons for the 21st Century."
+  birthYear: 1976
+  nationality: "Israeli"
+  website: "https://www.ynharari.com"
+---
+apiVersion: catalog.bookstore.io/v1alpha1
+kind: Author
+metadata:
+  name: arthur-conan-doyle
+spec:
+  name: "Arthur Conan Doyle"
+  biography: "British writer and physician. Creator of the famous detective Sherlock Holmes."
+  birthYear: 1859
+  deathYear: 1930
+  nationality: "British"
+---
+apiVersion: catalog.bookstore.io/v1alpha1
+kind: Author
+metadata:
+  name: frank-herbert
+spec:
+  name: "Frank Herbert"
+  biography: "American science fiction author. Best known for the Dune series, one of the best-selling science fiction novels of all time."
+  birthYear: 1920
+  deathYear: 1986
+  nationality: "American"
+---
+apiVersion: catalog.bookstore.io/v1alpha1
+kind: Author
+metadata:
+  name: james-clear
+spec:
+  name: "James Clear"
+  biography: "American author and speaker focused on habits, decision making, and continuous improvement. Author of Atomic Habits."
+  birthYear: 1986
+  nationality: "American"
+  website: "https://jamesclear.com"

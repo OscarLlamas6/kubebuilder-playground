@@ -35,9 +35,13 @@ type BookSpec struct {
 	// +kubebuilder:validation:Pattern=`^[0-9]{3}-[0-9]{1,5}-[0-9]{1,7}-[0-9]{1,7}-[0-9X]$|^[0-9]{9}[0-9X]$`
 	ISBN string `json:"isbn"`
 
-	// Author is the name of the book's author.
-	// +kubebuilder:validation:Required
-	Author string `json:"author"`
+	// Author is the name of the book's author (deprecated, use AuthorRef instead).
+	// +kubebuilder:validation:Optional
+	Author string `json:"author,omitempty"`
+
+	// AuthorRef is a reference to the Author resource.
+	// +kubebuilder:validation:Optional
+	AuthorRef *AuthorReference `json:"authorRef,omitempty"`
 
 	// Publisher is the name of the publishing company.
 	// +kubebuilder:validation:Optional
@@ -60,6 +64,28 @@ type BookSpec struct {
 	Pages int `json:"pages,omitempty"`
 }
 
+// AuthorReference contains a reference to an Author resource.
+type AuthorReference struct {
+	// Name is the name of the Author resource.
+	// +kubebuilder:validation:Required
+	Name string `json:"name"`
+}
+
+// AuthorInfo contains cached information about the author.
+type AuthorInfo struct {
+	// Name is the full name of the author.
+	// +kubebuilder:validation:Optional
+	Name string `json:"name,omitempty"`
+
+	// Nationality is the author's nationality.
+	// +kubebuilder:validation:Optional
+	Nationality string `json:"nationality,omitempty"`
+
+	// BirthYear is the year the author was born.
+	// +kubebuilder:validation:Optional
+	BirthYear int `json:"birthYear,omitempty"`
+}
+
 // BookStatus defines the observed state of Book.
 type BookStatus struct {
 	// Conditions represent the current status of the book.
@@ -70,6 +96,10 @@ type BookStatus struct {
 	// This will be calculated by the controller based on Inventory resources.
 	// +kubebuilder:validation:Optional
 	AvailableCopies int `json:"availableCopies,omitempty"`
+
+	// AuthorInfo contains cached information from the referenced Author.
+	// +kubebuilder:validation:Optional
+	AuthorInfo *AuthorInfo `json:"authorInfo,omitempty"`
 }
 
 // +kubebuilder:object:root=true

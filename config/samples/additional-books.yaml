@@ -1,0 +1,59 @@
+---
+# More books by George Orwell
+apiVersion: catalog.bookstore.io/v1alpha1
+kind: Book
+metadata:
+  name: book-animal-farm
+spec:
+  title: "Animal Farm"
+  isbn: "978-0-452-28424-1"
+  authorRef:
+    name: george-orwell
+  publisher: "Penguin Books"
+  publishedYear: 1945
+  genre: "Fiction"
+  pages: 112
+---
+apiVersion: catalog.bookstore.io/v1alpha1
+kind: Book
+metadata:
+  name: book-homage-catalonia
+spec:
+  title: "Homage to Catalonia"
+  isbn: "978-0-156-42117-6"
+  authorRef:
+    name: george-orwell
+  publisher: "Harcourt"
+  publishedYear: 1938
+  genre: "NonFiction"
+  pages: 232
+---
+# More books by J.R.R. Tolkien
+apiVersion: catalog.bookstore.io/v1alpha1
+kind: Book
+metadata:
+  name: book-lotr-fellowship
+spec:
+  title: "The Lord of the Rings: The Fellowship of the Ring"
+  isbn: "978-0-618-00222-1"
+  authorRef:
+    name: jrr-tolkien
+  publisher: "Houghton Mifflin"
+  publishedYear: 1954
+  genre: "Fantasy"
+  pages: 423
+---
+# More books by Yuval Noah Harari
+apiVersion: catalog.bookstore.io/v1alpha1
+kind: Book
+metadata:
+  name: book-homo-deus
+spec:
+  title: "Homo Deus: A Brief History of Tomorrow"
+  isbn: "978-0-062-46431-6"
+  authorRef:
+    name: yuval-harari
+  publisher: "Harper"
+  publishedYear: 2017
+  genre: "NonFiction"
+  pages: 464

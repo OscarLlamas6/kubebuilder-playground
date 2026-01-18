@@ -1,0 +1,14 @@
+---
+apiVersion: catalog.bookstore.io/v1alpha1
+kind: Book
+metadata:
+  name: book-animal-farm
+spec:
+  title: "Animal Farm"
+  isbn: "978-0-452-28424-1"
+  authorRef:
+    name: george-orwell
+  publisher: "Penguin Books"
+  publishedYear: 1945
+  genre: "Fiction"
+  pages: 112

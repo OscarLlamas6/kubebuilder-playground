@@ -3,6 +3,7 @@
 # It should be run by config/default
 resources:
 - bases/catalog.bookstore.io_books.yaml
+- bases/catalog.bookstore.io_authors.yaml
 # +kubebuilder:scaffold:crdkustomizeresource
 
 patches:

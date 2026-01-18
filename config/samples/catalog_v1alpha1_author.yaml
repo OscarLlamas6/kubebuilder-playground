@@ -1,0 +1,9 @@
+apiVersion: catalog.bookstore.io/v1alpha1
+kind: Author
+metadata:
+  labels:
+    app.kubernetes.io/name: kubebuilder-playground
+    app.kubernetes.io/managed-by: kustomize
+  name: author-sample
+spec:
+  # TODO(user): Add fields here
