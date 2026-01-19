@@ -9,7 +9,6 @@ This project demonstrates:
 - Kubernetes reconciliation loops and status conditions
 - Local development with Kind clusters
 - Production deployment patterns
-- Comparison with real-world projects like [Milo](https://github.com/datum-cloud/milo)
 
 **Current Status:** Phase 1 Complete ✅
 - Book CRD with validations
@@ -72,7 +71,6 @@ task clean-all           # Remove everything
 ## 🔗 Resources
 
 - [Kubebuilder Documentation](https://book.kubebuilder.io/)
-- [Milo Project](https://github.com/datum-cloud/milo) - Production reference
 - [Kind Documentation](https://kind.sigs.k8s.io/)
 
 ## License
